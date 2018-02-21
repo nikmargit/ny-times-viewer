@@ -1,19 +1,23 @@
 import React from "react";
 import $ from "jquery";
 import DatePicker from "./DatePicker";
+import ShowResults from "./ShowResults";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            articles: {},
-            date: null
+            date: null,
+            articles: null,
+            urls: {}
         };
 
         this.grabArticles = this.grabArticles.bind(this);
         this.setYearMonth = this.setYearMonth.bind(this);
     }
+
+    getUrls() {}
 
     setYearMonth(date) {
         const dateArr = date.target.value.split("-");
@@ -51,10 +55,13 @@ class App extends React.Component {
 
     render() {
         return (
-            <DatePicker
-                grabArticles={this.grabArticles}
-                setYearMonth={this.setYearMonth}
-            />
+            <div>
+                <DatePicker
+                    grabArticles={this.grabArticles}
+                    setYearMonth={this.setYearMonth}
+                />
+                <ShowResults articles={this.state.articles} />
+            </div>
         );
     }
 }
