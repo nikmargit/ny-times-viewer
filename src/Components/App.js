@@ -10,7 +10,7 @@ class App extends React.Component {
         this.state = {
             date: null,
             articles: null,
-            urls: {}
+            snipets: null
         };
 
         this.grabArticles = this.grabArticles.bind(this);
@@ -27,6 +27,36 @@ class App extends React.Component {
         this.setState({
             date: dateArr.join("/")
         });
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            this.state.articles &&
+            JSON.stringify(prevState.articles) !==
+                JSON.stringify(this.state.articles)
+        ) {
+            const articles = this.state.articles;
+            const urls = articles.map(article => article.web_url).slice(0, 1);
+            const link = urls[0];
+
+            //let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${link}`;
+            //console.log(url);
+
+            let url =
+                "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
+
+            $.ajax({
+                url: url,
+                method: "GET"
+            })
+                .done(results => {
+                    console.log(results);
+                    this.setState({ snipets: [results] });
+                })
+                .fail(function(err) {
+                    throw err;
+                });
+        }
     }
 
     grabArticles(event) {
@@ -60,7 +90,10 @@ class App extends React.Component {
                     grabArticles={this.grabArticles}
                     setYearMonth={this.setYearMonth}
                 />
-                <ShowResults articles={this.state.articles} />
+                <ShowResults
+                    snipets={this.state.snipets}
+                    grabSnipets={this.grabSnipets}
+                />
             </div>
         );
     }
