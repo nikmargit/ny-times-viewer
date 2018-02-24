@@ -10,15 +10,12 @@ class App extends React.Component {
         this.state = {
             date: null,
             articles: null,
-            snipets: null,
-            loading: false
+            isFetching: false
         };
 
         this.grabArticles = this.grabArticles.bind(this);
         this.setYearMonth = this.setYearMonth.bind(this);
     }
-
-    getUrls() {}
 
     setYearMonth(date) {
         const dateArr = date.target.value.split("-");
@@ -30,39 +27,9 @@ class App extends React.Component {
         });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (
-            this.state.articles &&
-            JSON.stringify(prevState.articles) !==
-                JSON.stringify(this.state.articles)
-        ) {
-            const articles = this.state.articles;
-            const urls = articles.map(article => article.web_url).slice(0, 1);
-            const link = urls[0];
-
-            //let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${link}`;
-            //console.log(url);
-
-            let url =
-                "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
-
-            $.ajax({
-                url: url,
-                method: "GET"
-            })
-                .done(results => {
-                    console.log(results);
-                    this.setState({ snipets: [results] });
-                })
-                .fail(function(err) {
-                    throw err;
-                });
-        }
-    }
-
     grabArticles(event) {
         event.preventDefault();
-        this.setState({ loading: true }, function() {
+        this.setState({ isFetching: true }, function() {
             if (this.state.date) {
                 let url = `https://api.nytimes.com/svc/archive/v1/${
                     this.state.date
@@ -77,19 +44,14 @@ class App extends React.Component {
                     method: "GET"
                 })
                     .done(result => {
-                        this.setState(
-                            { articles: result.response.docs },
-                            function() {
-                                this.setState({ loading: false });
-                            }
-                        );
+                        const temp = result.response.docs.slice(0, 2);
+                        this.setState({ articles: temp });
                     })
                     .fail(function(err) {
                         throw err;
                     });
             }
         });
-        // console.log(this.state.loading);
     }
 
     render() {
@@ -99,7 +61,11 @@ class App extends React.Component {
                     grabArticles={this.grabArticles}
                     setYearMonth={this.setYearMonth}
                 />
-                <ShowResults snipets={this.state.snipets} />
+                <ShowResults
+                    snipets={this.state.snipets}
+                    isFetching={this.state.isFetching}
+                    articles={this.state.articles}
+                />
             </div>
         );
     }

@@ -1,12 +1,30 @@
 import React from "react";
+import Thumbnail from "./Thumbnail";
 
 class ShowResults extends React.Component {
     render() {
-        const snipets = this.props.snipets;
-        if (snipets) {
-            return <p>{snipets[0].description}</p>;
+        //const isFetching = this.props.isFetching;
+        const articles = this.props.articles;
+
+        // if (isFetching) {
+        //     return <p>loading...</p>;
+        // }
+        if (articles) {
+            const temp = [];
+
+            articles.forEach((article, index) => {
+                temp.push(
+                    <Thumbnail
+                        article={article}
+                        articles={articles}
+                        key={index}
+                    />
+                );
+            });
+
+            return <ul>{temp}</ul>;
         }
-        return <p>wtf</p>;
+        return null;
     }
 }
 
