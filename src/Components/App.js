@@ -6,7 +6,7 @@ import ShowResults from "./ShowResults";
 class App extends React.Component {
     constructor(props) {
         super(props);
-
+        //set initial state
         this.state = {
             date: null,
             articles: null,
@@ -18,6 +18,7 @@ class App extends React.Component {
     }
 
     setYearMonth(date) {
+        //set date state in proper format when user choose the month and the year
         const dateArr = date.target.value.split("-");
 
         dateArr[1] = Math.abs(dateArr[1]);
@@ -28,8 +29,10 @@ class App extends React.Component {
     }
 
     grabArticles(event) {
+        //grab articles from ny times api when user submit a form
         event.preventDefault();
         this.setState({ isFetching: true }, function() {
+            //first set flag to true, then a callback to get data from api
             if (this.state.date) {
                 let url = `https://api.nytimes.com/svc/archive/v1/${
                     this.state.date
@@ -45,7 +48,11 @@ class App extends React.Component {
                 })
                     .done(result => {
                         const temp = result.response.docs.slice(0, 2);
-                        this.setState({ articles: temp });
+                        this.setState(
+                            //flag to false, then add articles to state
+                            { isFetching: false },
+                            this.setState({ articles: temp })
+                        );
                     })
                     .fail(function(err) {
                         throw err;

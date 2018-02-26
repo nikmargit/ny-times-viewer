@@ -12,7 +12,7 @@ class Thumbnail extends React.Component {
 
     componentDidMount() {
         // let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
-        //     this.state.link
+        //     this.props.article.web_url
         // }`;
         let url =
             "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
@@ -21,7 +21,6 @@ class Thumbnail extends React.Component {
             method: "GET"
         })
             .done(results => {
-                //this.setState({ isFetching: false });
                 this.setState({ snipet: results });
             })
             .fail(function(err) {
@@ -31,6 +30,7 @@ class Thumbnail extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.article !== this.props.article) {
+            //render only if there was a new ny times API call
             // let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
             //     this.props.article.web_url
             // }`;
@@ -43,43 +43,17 @@ class Thumbnail extends React.Component {
                 method: "GET"
             })
                 .done(results => {
-                    //this.setState({ isFetching: false });
                     this.setState({ snipet: results });
                 })
                 .fail(function(err) {
                     throw err;
                 });
         }
-
-        // let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
-        //     this.state.link
-        // }`;
-        // console.log("prev", prevProps);
-        // console.log("this", this.props);
-        // console.log(prevProps.article.web_url !== this.props.article.web_url);
-
-        // if (prevProps.article.web_url !== this.props.article.web_url) {
-        //     // let url =
-        //     //     "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
-        //     $.ajax({
-        //         url: url,
-        //         method: "GET"
-        //     })
-        //         .done(results => {
-        //             //this.setState({ isFetching: false });
-        //             console.log("HERE>>>>>>>>>");
-        //             this.setState({ snipet: results });
-        //         })
-        //         .fail(function(err) {
-        //             throw err;
-        //         });
-        // }
     }
 
     render() {
         const snipet = this.state.snipet;
-        if (this.state.snipet) {
-            console.log("render");
+        if (snipet) {
             return (
                 <li>
                     <img src={snipet.image} alt={snipet.title} width="200px" />
