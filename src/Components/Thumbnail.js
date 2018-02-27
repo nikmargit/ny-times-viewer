@@ -55,7 +55,7 @@ class Thumbnail extends React.Component {
         const snipet = this.state.snipet;
         if (snipet) {
             return (
-                <li>
+                <li className="thumbnail">
                     <img src={snipet.image} alt={snipet.title} width="200px" />
                     <a href={snipet.url}>
                         <h3>{snipet.title}</h3>

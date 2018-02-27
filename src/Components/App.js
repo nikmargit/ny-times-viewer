@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import DatePicker from "./DatePicker";
 import ShowResults from "./ShowResults";
+import "./App.css";
 
 class App extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class App extends React.Component {
                     method: "GET"
                 })
                     .done(result => {
-                        const temp = result.response.docs.slice(0, 2);
+                        const temp = result.response.docs.slice(0, 8);
                         this.setState(
                             //flag to false, then add articles to state
                             { isFetching: false },

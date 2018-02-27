@@ -1,0 +1,52 @@
+body {
+    font-family: "Averia Serif Libre", cursive;
+    background-color: #f2f2f2;
+}
+
+.input-form {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 2rem;
+}
+
+.galery {
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    margin: 32px 0;
+    padding: 0;
+}
+
+.thumbnail {
+    margin: 0 15px;
+    flex-basis: calc(25% - 30px);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 1024px) {
+    body {
+        background-color: lightcoral;
+    }
+    .thumbnail {
+        margin: 0 10px;
+        flex-basis: calc(50% - 20px);
+    }
+
+    .input-form h2 {
+        font-size: 2.3rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    body {
+        background-color: lightgrey;
+    }
+    .thumbnail {
+        flex-basis: calc(1000%);
+    }
+}

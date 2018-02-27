@@ -17,7 +17,7 @@ class ShowResults extends React.Component {
                 temp.push(<Thumbnail article={article} key={index} />);
             });
 
-            return <ul>{temp}</ul>;
+            return <ul className="galery">{temp}</ul>;
         }
         return null;
     }

@@ -3,8 +3,8 @@ import React from "react";
 class DatePicker extends React.Component {
     render() {
         return (
-            <div>
-                <h3>Enter a month and a year:</h3>
+            <div className="input-form">
+                <h2>Enter a month and a year:</h2>
                 <form onSubmit={this.props.grabArticles}>
                     <input
                         type="month"
