@@ -8,14 +8,16 @@ class Thumbnail extends React.Component {
         this.state = {
             snipet: undefined
         };
+
+        this.callLinkPreviewAPI = this.callLinkPreviewAPI.bind(this);
     }
 
-    componentDidMount() {
-        // let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
-        //     this.props.article.web_url
-        // }`;
-        let url =
-            "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
+    callLinkPreviewAPI() {
+        let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
+            this.props.article.web_url
+        }`;
+        // let url =
+        //     "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
         $.ajax({
             url: url,
             method: "GET"
@@ -28,35 +30,26 @@ class Thumbnail extends React.Component {
             });
     }
 
+    componentDidMount() {
+        this.callLinkPreviewAPI();
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.article !== this.props.article) {
-            //render only if there was a new ny times API call
-            // let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
-            //     this.props.article.web_url
-            // }`;
-
-            let url =
-                "http://api.linkpreview.net/?key=123456&q=https://www.google.com";
-
-            $.ajax({
-                url: url,
-                method: "GET"
-            })
-                .done(results => {
-                    this.setState({ snipet: results });
-                })
-                .fail(function(err) {
-                    throw err;
-                });
+            this.callLinkPreviewAPI();
         }
     }
 
     render() {
         const snipet = this.state.snipet;
         if (snipet) {
+            const divStyle = {
+                backgroundImage: `url(${snipet.image})`
+            };
             return (
                 <li className="thumbnail">
-                    <img src={snipet.image} alt={snipet.title} width="200px" />
+                    <div className="img" style={divStyle} />
+
                     <a href={snipet.url}>
                         <h3>{snipet.title}</h3>
                     </a>

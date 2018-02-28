@@ -3,6 +3,7 @@ import $ from "jquery";
 import DatePicker from "./DatePicker";
 import ShowResults from "./ShowResults";
 import "./App.css";
+import Logo from "./logo.png";
 
 class App extends React.Component {
     constructor(props) {
@@ -15,18 +16,19 @@ class App extends React.Component {
         };
 
         this.grabArticles = this.grabArticles.bind(this);
-        this.setYearMonth = this.setYearMonth.bind(this);
+        this.setMonth = this.setMonth.bind(this);
     }
 
-    setYearMonth(date) {
+    setMonth(date) {
         //set date state in proper format when user choose the month and the year
-        const dateArr = date.target.value.split("-");
+        // const dateArr = date.target.value.split("-");
 
-        dateArr[1] = Math.abs(dateArr[1]);
+        // dateArr[1] = Math.abs(dateArr[1]);
 
-        this.setState({
-            date: dateArr.join("/")
-        });
+        // this.setState({
+        //     date: dateArr.join("/")
+        // });
+        console.log(date.target.value);
     }
 
     grabArticles(event) {
@@ -48,7 +50,7 @@ class App extends React.Component {
                     method: "GET"
                 })
                     .done(result => {
-                        const temp = result.response.docs.slice(0, 8);
+                        const temp = result.response.docs.slice(0, 2);
                         this.setState(
                             //flag to false, then add articles to state
                             { isFetching: false },
@@ -65,15 +67,22 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <h1>
+                    <img src={Logo} alt="" className="logo" />
+                </h1>
+
                 <DatePicker
                     grabArticles={this.grabArticles}
-                    setYearMonth={this.setYearMonth}
+                    setMonth={this.setMonth}
                 />
                 <ShowResults
                     snipets={this.state.snipets}
                     isFetching={this.state.isFetching}
                     articles={this.state.articles}
                 />
+                <footer>
+                    <p>Footer</p>
+                </footer>
             </div>
         );
     }
