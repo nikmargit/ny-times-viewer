@@ -128,7 +128,8 @@ table {
 
 body {
     font-family: "Dosis", serif;
-    background-color: #ffdb74;
+    /* background-color: #ffdb74; */
+    background-color: #fff;
     position: relative;
     padding-bottom: 5rem;
     margin: 0;
