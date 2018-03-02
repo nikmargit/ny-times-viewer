@@ -13,7 +13,7 @@ class Thumbnail extends React.Component {
     }
 
     callLinkPreviewAPI() {
-        let url = `http://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
+        let url = `https://api.linkpreview.net/?key=5a8db23fda580b6952e403e52ff901127c4701a2a3852&q=${
             this.props.article.web_url
         }`;
         // let url =
