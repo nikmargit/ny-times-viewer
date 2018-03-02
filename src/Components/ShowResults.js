@@ -1,6 +1,7 @@
 import React from "react";
 import Thumbnail from "./Thumbnail";
 import loading from "./loading.gif";
+import { currentMonthName, currentYear } from "./countDate";
 
 class ShowResults extends React.Component {
     render() {
@@ -8,7 +9,16 @@ class ShowResults extends React.Component {
         const articles = this.props.articles;
 
         if (isFetching) {
-            return <img src={loading} alt="" width="250" />;
+            return (
+                <div className="main">
+                    <img
+                        src={loading}
+                        alt=""
+                        width="250"
+                        className="loadingImg"
+                    />
+                </div>
+            );
         }
 
         if (articles) {
@@ -17,9 +27,21 @@ class ShowResults extends React.Component {
                 temp.push(<Thumbnail article={article} key={index} />);
             });
 
-            return <ul className="galery">{temp}</ul>;
+            return (
+                <div className="main">
+                    <ul className="galery">{temp}</ul>
+                </div>
+            );
         }
-        return null;
+        return (
+            <div className="main">
+                <p className="instructions">
+                    This is the New York Times archive viewer. Please select the
+                    month and grab articles. You can select any month between
+                    January 1981 and {currentMonthName()} {currentYear()}.
+                </p>
+            </div>
+        );
     }
 }
 

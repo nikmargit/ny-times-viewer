@@ -16,19 +16,18 @@ class App extends React.Component {
         };
 
         this.grabArticles = this.grabArticles.bind(this);
-        this.setMonth = this.setMonth.bind(this);
+        this.setDate = this.setDate.bind(this);
     }
 
-    setMonth(date) {
+    setDate(date) {
         //set date state in proper format when user choose the month and the year
-        // const dateArr = date.target.value.split("-");
+        const dateArr = date.target.value.split("-");
 
-        // dateArr[1] = Math.abs(dateArr[1]);
+        dateArr[1] = Math.abs(dateArr[1]);
 
-        // this.setState({
-        //     date: dateArr.join("/")
-        // });
-        console.log(date.target.value);
+        this.setState({
+            date: dateArr.join("/")
+        });
     }
 
     grabArticles(event) {
@@ -50,7 +49,7 @@ class App extends React.Component {
                     method: "GET"
                 })
                     .done(result => {
-                        const temp = result.response.docs.slice(0, 2);
+                        const temp = result.response.docs.slice(0, 5);
                         this.setState(
                             //flag to false, then add articles to state
                             { isFetching: false },
@@ -67,13 +66,16 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <h1>
-                    <img src={Logo} alt="" className="logo" />
-                </h1>
+                <header>
+                    <h1>
+                        <img src={Logo} alt="" className="logo" />
+                    </h1>
+                    <h2>Discover History As It Happened</h2>
+                </header>
 
                 <DatePicker
                     grabArticles={this.grabArticles}
-                    setMonth={this.setMonth}
+                    setDate={this.setDate}
                 />
                 <ShowResults
                     snipets={this.state.snipets}
@@ -81,7 +83,18 @@ class App extends React.Component {
                     articles={this.state.articles}
                 />
                 <footer>
-                    <p>Footer</p>
+                    <h3>
+                        <a
+                            href="http://developer.nytimes.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                src="http://static01.nytimes.com/packages/images/developer/logos/poweredby_nytimes_200a.png"
+                                alt="NY Times API logo"
+                            />
+                        </a>
+                    </h3>
                 </footer>
             </div>
         );

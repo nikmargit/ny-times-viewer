@@ -50,7 +50,12 @@ class Thumbnail extends React.Component {
                 <li className="thumbnail">
                     <div className="img" style={divStyle} />
 
-                    <a href={snipet.url}>
+                    <a
+                        href={snipet.url}
+                        className="article-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <h3>{snipet.title}</h3>
                     </a>
                     <p>{snipet.description}</p>
