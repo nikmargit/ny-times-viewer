@@ -49,7 +49,7 @@ class App extends React.Component {
                     method: "GET"
                 })
                     .done(result => {
-                        const temp = result.response.docs.slice(0, 5);
+                        const temp = result.response.docs.slice(0, 20);
                         this.setState(
                             //flag to false, then add articles to state
                             { isFetching: false },

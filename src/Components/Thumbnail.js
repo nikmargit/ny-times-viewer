@@ -25,8 +25,16 @@ class Thumbnail extends React.Component {
             .done(results => {
                 this.setState({ snipet: results });
             })
-            .fail(function(err) {
-                throw err;
+            .fail(() => {
+                const eror = {
+                    image:
+                        "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX7976258.jpg",
+                    url: "#",
+                    title: "Sorry, something has gone wrong.",
+                    description:
+                        "Please try again later, we encountered some API problems."
+                };
+                this.setState({ snipet: eror });
             });
     }
 

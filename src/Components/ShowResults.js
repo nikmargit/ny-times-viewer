@@ -14,7 +14,7 @@ class ShowResults extends React.Component {
                     <img
                         src={loading}
                         alt=""
-                        width="250"
+                        width="200"
                         className="loadingImg"
                     />
                 </div>
